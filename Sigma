@@ -1,0 +1,66 @@
+local tickStart = tick()
+
+local TeleportService = game:GetService("TeleportService")
+local Players = game:GetService("Players")
+local CoreGui = game:GetService("CoreGui")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local StarterGui = game:GetService("StarterGui")
+local player = Players.LocalPlayer
+local retryDelay = 5
+
+pcall(function()
+    StarterGui:SetCore("SendNotification", {
+        Title = "Made By DynaX",
+        Text = "Script Executed, Lazy ass.",
+        Duration = 5
+    })
+end)
+
+game:GetService("CoreGui").RobloxPromptGui.promptOverlay.ChildAdded:Connect(function(obj)
+    if obj.Name == "ErrorPrompt" then
+        task.spawn(function()
+            while true do
+                task.wait(retryDelay)
+                pcall(function()
+                    TeleportService:Teleport(game.PlaceId, player)
+                end)
+            end
+        end)
+    end
+end)
+
+pcall(function()
+    StarterGui:SetCore("SendNotification", {
+        Title = "Status",
+        Text = "Mega Sigma Auto Rejoin + AFK Enabled",
+        Duration = 6
+    })
+end)
+
+task.spawn(function()
+    local VirtualUser = game:GetService("VirtualUser")
+    player.Idled:Connect(function()
+        VirtualUser:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+        task.wait(1)
+        VirtualUser:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+    end)
+end)
+
+pcall(function()
+    task.wait(2)
+    StarterGui:SetCore("SendNotification", {
+        Title = "Event",
+        Text = "Teleporting Into Event...",
+        Duration = 5
+    })
+    pcall(function()
+        ReplicatedStorage.Events.Hallowen2025.Enter:FireServer()
+    end)
+    task.wait(0.5)
+    pcall(function()
+        ReplicatedStorage.Events.Hallowen2025.Start:FireServer()
+    end)
+end)
+
+local execTime = math.floor((tick() - tickStart) * 1000)
+print("Script Executed Between " .. execTime .. " Milliseconds")
