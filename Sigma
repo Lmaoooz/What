@@ -31,8 +31,8 @@ end)
 
 pcall(function()
     StarterGui:SetCore("SendNotification", {
-        Title = "Status",
-        Text = "Mega Sigma Auto Rejoin + AFK Enabled",
+        Title = "Rejoiner",
+        Text = "Mega Sigma Auto Rejoin + Anti-AFK Enabled",
         Duration = 6
     })
 end)
