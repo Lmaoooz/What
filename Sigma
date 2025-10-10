@@ -6,60 +6,67 @@ local CoreGui = game:GetService("CoreGui")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local StarterGui = game:GetService("StarterGui")
 local player = Players.LocalPlayer
+
+local LOBBY_PLACE_ID = 18583778121
 local retryDelay = 5
 
 pcall(function()
-    StarterGui:SetCore("SendNotification", {
-        Title = "Made By DynaX",
-        Text = "Script Executed, Lazy ass.",
-        Duration = 5
-    })
+	StarterGui:SetCore("SendNotification", {
+		Title = "Script Executed",
+		Text = "Lazy Bones. [Made By DynaX]",
+		Duration = 5
+	})
 end)
 
 game:GetService("CoreGui").RobloxPromptGui.promptOverlay.ChildAdded:Connect(function(obj)
-    if obj.Name == "ErrorPrompt" then
-        task.spawn(function()
-            while true do
-                task.wait(retryDelay)
-                pcall(function()
-                    TeleportService:Teleport(game.PlaceId, player)
-                end)
-            end
-        end)
-    end
+	if obj.Name == "ErrorPrompt" then
+		task.spawn(function()
+			while true do
+				task.wait(retryDelay)
+				pcall(function()
+					TeleportService:Teleport(LOBBY_PLACE_ID, player)
+				end)
+			end
+		end)
+	end
 end)
 
-pcall(function()
-    StarterGui:SetCore("SendNotification", {
-        Title = "Rejoiner",
-        Text = "Mega Sigma Auto Rejoin + Anti-AFK Enabled",
-        Duration = 6
-    })
-end)
+if game.PlaceId == LOBBY_PLACE_ID then
+	pcall(function()
+		StarterGui:SetCore("SendNotification", {
+			Title = "Event",
+			Text = "Teleporting Into Event...",
+			Duration = 5
+		})
+	end)
+
+	task.spawn(function()
+		task.wait(2)
+		pcall(function()
+			ReplicatedStorage.Events.Hallowen2025.Enter:FireServer()
+		end)
+		task.wait(0.5)
+		pcall(function()
+			ReplicatedStorage.Events.Hallowen2025.Start:FireServer()
+		end)
+	end)
+else
+	pcall(function()
+		StarterGui:SetCore("SendNotification", {
+			Title = "Status",
+			Text = "Mega Sigma Auto Rejoin + AFK Enabled",
+			Duration = 6
+		})
+	end)
+end
 
 task.spawn(function()
-    local VirtualUser = game:GetService("VirtualUser")
-    player.Idled:Connect(function()
-        VirtualUser:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
-        task.wait(1)
-        VirtualUser:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
-    end)
-end)
-
-pcall(function()
-    task.wait(2)
-    StarterGui:SetCore("SendNotification", {
-        Title = "Event",
-        Text = "Teleporting Into Event...",
-        Duration = 5
-    })
-    pcall(function()
-        ReplicatedStorage.Events.Hallowen2025.Enter:FireServer()
-    end)
-    task.wait(0.5)
-    pcall(function()
-        ReplicatedStorage.Events.Hallowen2025.Start:FireServer()
-    end)
+	local VirtualUser = game:GetService("VirtualUser")
+	player.Idled:Connect(function()
+		VirtualUser:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+		task.wait(1)
+		VirtualUser:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+	end)
 end)
 
 local execTime = math.floor((tick() - tickStart) * 1000)
