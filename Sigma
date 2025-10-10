@@ -12,8 +12,8 @@ local retryDelay = 5
 
 pcall(function()
 	StarterGui:SetCore("SendNotification", {
-		Title = "Script Executed",
-		Text = "Lazy Bones. [Made By DynaX]",
+		Title = "Made By DynaX",
+		Text = "Script Executed, Go away.",
 		Duration = 5
 	})
 end)
@@ -34,7 +34,7 @@ end)
 if game.PlaceId == LOBBY_PLACE_ID then
 	pcall(function()
 		StarterGui:SetCore("SendNotification", {
-			Title = "Event",
+			Title = "Join",
 			Text = "Teleporting Into Event...",
 			Duration = 5
 		})
@@ -53,9 +53,9 @@ if game.PlaceId == LOBBY_PLACE_ID then
 else
 	pcall(function()
 		StarterGui:SetCore("SendNotification", {
-			Title = "Status",
+			Title = "Rejoiner",
 			Text = "Mega Sigma Auto Rejoin + AFK Enabled",
-			Duration = 6
+			Duration = 10
 		})
 	end)
 end
